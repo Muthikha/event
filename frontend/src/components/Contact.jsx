@@ -10,8 +10,8 @@ const Contact = () => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    await axios
-      .post(
+    try {
+      const res = await axios.post(
         "https://event-4.onrender.com/api/v1/message/send",
         {
           name,
@@ -23,17 +23,19 @@ const Contact = () => {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
         }
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setName("");
-        setEmail("");
-        setMessage("");
-        setSubject("");
-      })
-      .catch((error) => {
+      );
+      toast.success(res.data.message);
+      setName("");
+      setEmail("");
+      setMessage("");
+      setSubject("");
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
         toast.error(error.response.data.message);
-      });
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
+    }
   };
 
   return (
