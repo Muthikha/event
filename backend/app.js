@@ -17,6 +17,12 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.get("/",(req,re)=>{
+  resizeBy.json({
+    success: true,
+    message: "hi!!",
+  });
+});
 app.use("/api/v1/message", messageRouter);
 dbConnection();
 export default app;
