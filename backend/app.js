@@ -8,11 +8,7 @@ const app = express();
 
 dotenv.config({ path: "./config/config.env" });
 
-app.use(cors({
-  origin: '*',
-  methods: ['POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}))
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
