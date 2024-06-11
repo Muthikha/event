@@ -8,7 +8,13 @@ const app = express();
 
 dotenv.config({ path: "./config/config.env" });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // Allow requests from the frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify the allowed methods
+    credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
